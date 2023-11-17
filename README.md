@@ -19,7 +19,7 @@ Com o Dart SDK instalado, você pode executar o algoritmo seguindo estas etapas:
 2. Abra um terminal e navegue até o diretório "desafio_1" do repositório clonado.
 3. Execute o seguinte comando para executar o algoritmo:
 ```
-dart desafio_1.dart
+dart somatorio.dart
 ```
 4. O algoritmo solicitará a inserção de um número inteiro positivo. Digite-o e pressione Enter.
 5. O programa irá calcular e exibir o somatório de todos os números inteiros positivos que são divisíveis por 3 ou 5, menores que o número fornecido.
