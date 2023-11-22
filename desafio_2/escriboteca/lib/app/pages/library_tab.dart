@@ -12,23 +12,31 @@ class LibraryTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: 16,
-        crossAxisCount: 2,
-        childAspectRatio: 0.6,
-      ),
-      itemCount: booksRepository.books.length,
-      itemBuilder: (context, index) {
-        Book book = booksRepository.books[index];
-        String controllerName = 'bookController${book.id}';
-        Get.put(BookController(book), tag: controllerName);
-        return Center(
-          child: CardBook(
-            controller: Get.find<BookController>(tag: controllerName),
-          ),
-        );
+    return RefreshIndicator(
+      onRefresh: () async {
+        await booksRepository.getBooksAPI();
       },
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 16,
+          crossAxisCount:
+              MediaQuery.of(context).orientation == Orientation.portrait
+                  ? 2
+                  : 4,
+          childAspectRatio: 0.6,
+        ),
+        itemCount: booksRepository.books.length,
+        itemBuilder: (context, index) {
+          Book book = booksRepository.books[index];
+          String controllerName = 'bookController${book.id}';
+          Get.put(BookController(book), tag: controllerName);
+          return Center(
+            child: CardBook(
+              controller: Get.find<BookController>(tag: controllerName),
+            ),
+          );
+        },
+      ),
     );
   }
 }
