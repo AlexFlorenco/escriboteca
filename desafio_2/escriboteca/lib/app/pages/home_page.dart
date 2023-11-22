@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                         itemCount: booksRepository.books.length,
                         itemBuilder: (context, index) {
                           Book book = booksRepository.books[index];
-                          String controllerName = 'bookController$index';
+                          String controllerName = 'bookController${book.id}';
                           Get.put(BookController(book), tag: controllerName);
                           return CardBook(
                             controller:
@@ -117,7 +117,26 @@ class _HomePageState extends State<HomePage> {
                           );
                         },
                       ),
-                Placeholder(),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisSpacing: 16,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.6,
+                  ),
+                  itemCount: booksRepository.books
+                      .where((book) => book.isFavorite.value)
+                      .length,
+                  itemBuilder: (context, index) {
+                    Book book = booksRepository.books
+                        .where((book) => book.isFavorite.value)
+                        .toList()[index];
+                    String controllerName = 'bookController${book.id}';
+                    Get.put(BookController(book), tag: controllerName);
+                    return CardBook(
+                      controller: Get.find<BookController>(tag: controllerName),
+                    );
+                  },
+                ),
               ]),
             ),
           )),
