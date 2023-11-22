@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:escribopedia/app/controllers/book_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/card_book.dart';
 import '../constants.dart';
@@ -19,6 +24,22 @@ class _HomePageState extends State<HomePage> {
 
   late final BooksRepository booksRepository;
 
+  Future<void> deleteAllBooks() async {
+    Directory? appDocDir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
+
+    final dir = Directory(appDocDir!.path);
+
+    if (dir.existsSync()) {
+      dir.listSync().forEach((file) {
+        if (file.path.endsWith('.epub')) {
+          file.deleteSync();
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +56,15 @@ class _HomePageState extends State<HomePage> {
             appBar: AppBar(
               backgroundColor: primaryColor,
               title: const Text('ESCRIBOTECA'),
+              actions: [
+                GestureDetector(
+                    child: Icon(Icons.delete),
+                    onTap: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      deleteAllBooks();
+                      prefs.clear();
+                    })
+              ],
               bottom: const TabBar(
                 tabs: [
                   Tab(
@@ -79,7 +109,12 @@ class _HomePageState extends State<HomePage> {
                         itemCount: booksRepository.books.length,
                         itemBuilder: (context, index) {
                           Book book = booksRepository.books[index];
-                          return CardBook(book: book);
+                          String controllerName = 'bookController$index';
+                          Get.put(BookController(book), tag: controllerName);
+                          return CardBook(
+                            controller:
+                                Get.find<BookController>(tag: controllerName),
+                          );
                         },
                       ),
                 Placeholder(),
