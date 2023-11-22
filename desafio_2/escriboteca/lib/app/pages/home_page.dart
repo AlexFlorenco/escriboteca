@@ -56,10 +56,9 @@ class _HomePageState extends State<HomePage> {
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: primaryColor,
-              // title: const Text('ESCRIBOTECA'),
               actions: [
                 GestureDetector(
-                    child: Icon(Icons.delete),
+                    child: const Icon(Icons.delete),
                     onTap: () async {
                       final prefs = await SharedPreferences.getInstance();
                       deleteAllBooks();
