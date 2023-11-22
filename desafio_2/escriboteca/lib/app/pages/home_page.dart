@@ -6,12 +6,11 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../components/card_book.dart';
 import '../components/loader_spinner.dart';
 import '../constants.dart';
-import '../controllers/book_controller.dart';
-import '../models/book.dart';
 import '../repositories/books_repository.dart';
+import 'favorites_tab.dart';
+import 'library_tab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -83,56 +82,16 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
               child: TabBarView(children: [
                 booksRepository.isLoading.value
-                    ? const Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            LoaderSpinner(color: primaryColor),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text('Carregando estante...'),
-                            )
-                          ],
-                        ),
+                    ? const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          LoaderSpinner(color: primaryColor),
+                          SizedBox(height: 20),
+                          Text('Carregando biblioteca...'),
+                        ],
                       )
-                    : GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisSpacing: 16,
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.6,
-                        ),
-                        itemCount: booksRepository.books.length,
-                        itemBuilder: (context, index) {
-                          Book book = booksRepository.books[index];
-                          String controllerName = 'bookController${book.id}';
-                          Get.put(BookController(book), tag: controllerName);
-                          return CardBook(
-                            controller:
-                                Get.find<BookController>(tag: controllerName),
-                          );
-                        },
-                      ),
-                GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisSpacing: 16,
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.6,
-                  ),
-                  itemCount: booksRepository.books
-                      .where((book) => book.isFavorite.value)
-                      .length,
-                  itemBuilder: (context, index) {
-                    Book book = booksRepository.books
-                        .where((book) => book.isFavorite.value)
-                        .toList()[index];
-                    String controllerName = 'bookController${book.id}';
-                    Get.put(BookController(book), tag: controllerName);
-                    return CardBook(
-                      controller: Get.find<BookController>(tag: controllerName),
-                    );
-                  },
-                ),
+                    : LibraryTab(booksRepository: booksRepository),
+                FavoriteTab(booksRepository: booksRepository),
               ]),
             ),
           )),
