@@ -1,14 +1,15 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:escribopedia/app/controllers/book_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/card_book.dart';
+import '../components/loader_spinner.dart';
 import '../constants.dart';
+import '../controllers/book_controller.dart';
 import '../models/book.dart';
 import '../repositories/books_repository.dart';
 
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: primaryColor,
-              title: const Text('ESCRIBOTECA'),
+              // title: const Text('ESCRIBOTECA'),
               actions: [
                 GestureDetector(
                     child: Icon(Icons.delete),
@@ -65,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                       prefs.clear();
                     })
               ],
-              bottom: const TabBar(
+              title: const TabBar(
                 tabs: [
                   Tab(
                     icon: Icon(Icons.book),
@@ -80,18 +81,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             body: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
               child: TabBarView(children: [
                 booksRepository.isLoading.value
                     ? const Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(primaryColor),
-                            ),
+                            LoaderSpinner(color: primaryColor),
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text('Carregando estante...'),
