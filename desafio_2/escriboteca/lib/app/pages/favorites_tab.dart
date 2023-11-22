@@ -27,8 +27,10 @@ class FavoriteTab extends StatelessWidget {
               .toList()[index];
           String controllerName = 'bookController${book.id}';
           Get.put(BookController(book), tag: controllerName);
-          return CardBook(
-            controller: Get.find<BookController>(tag: controllerName),
+          return Center(
+            child: CardBook(
+              controller: Get.find<BookController>(tag: controllerName),
+            ),
           );
         },
       ),
