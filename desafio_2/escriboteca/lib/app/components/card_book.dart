@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import '../constants.dart';
 import '../controllers/book_controller.dart';
+import 'cover_book.dart';
+import 'loader_spinner.dart';
 
 class CardBook extends StatelessWidget {
   final BookController controller;
@@ -20,18 +22,10 @@ class CardBook extends StatelessWidget {
             Column(
               children: [
                 Stack(
-                  alignment: Alignment.bottomCenter,
                   children: [
-                    SizedBox(
-                      height: 200,
-                      width: 160,
-                      child: Opacity(
-                        opacity: controller.book.isDownloaded.value ? 1.0 : 0.5,
-                        child: Image.network(
-                          controller.book.coverUrl,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                    CoverBook(
+                      coverUrl: controller.book.coverUrl,
+                      isDownloaded: controller.book.isDownloaded.value,
                     ),
                     if (!controller.book.isDownloaded.value &&
                         !controller.isDownloading.value)
@@ -43,17 +37,8 @@ class CardBook extends StatelessWidget {
                         ),
                       ),
                     if (controller.isDownloading.value)
-                      const Positioned.fill(
-                        child: Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 6,
-                              color: downloadItemsColor,
-                            ),
-                          ),
-                        ),
+                      const LoaderSpinner(
+                        color: downloadItemsColor,
                       )
                   ],
                 ),
@@ -73,23 +58,18 @@ class CardBook extends StatelessWidget {
             Obx(
               () => GestureDetector(
                 onTap: () => controller.toggleFavorite(),
-                child: controller.book.isFavorite.value
-                    ? const CircleAvatar(
-                        backgroundColor: favoriteBackground,
-                        child: Icon(
-                          Icons.bookmark,
-                          color: favoriteActive,
-                          size: 30,
-                        ),
-                      )
-                    : const CircleAvatar(
-                        backgroundColor: favoriteBackground,
-                        child: Icon(
-                          Icons.bookmark_outline,
-                          color: favoriteInactive,
-                          size: 30,
-                        ),
-                      ),
+                child: CircleAvatar(
+                  backgroundColor: favoriteBackground,
+                  child: Icon(
+                    controller.book.isFavorite.value
+                        ? Icons.bookmark
+                        : Icons.bookmark_outline,
+                    color: controller.book.isFavorite.value
+                        ? favoriteActive
+                        : favoriteInactive,
+                    size: 30,
+                  ),
+                ),
               ),
             ),
           ],
