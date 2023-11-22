@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../components/loader_spinner.dart';
+import '../components/grid_lazy_loading.dart';
 import '../constants.dart';
 import '../repositories/books_repository.dart';
 import 'favorites_tab.dart';
@@ -90,14 +90,7 @@ class _HomePageState extends State<HomePage> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
                 child: TabBarView(children: [
                   booksRepository.isLoading.value
-                      ? const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            LoaderSpinner(color: primaryColor),
-                            SizedBox(height: 20),
-                            Text('Carregando biblioteca...'),
-                          ],
-                        )
+                      ? const GridLazyLoading()
                       : LibraryTab(booksRepository: booksRepository),
                   FavoriteTab(booksRepository: booksRepository),
                 ]),
