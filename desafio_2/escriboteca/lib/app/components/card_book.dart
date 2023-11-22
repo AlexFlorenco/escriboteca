@@ -37,8 +37,10 @@ class CardBook extends StatelessWidget {
                         ),
                       ),
                     if (controller.isDownloading.value)
-                      const LoaderSpinner(
-                        color: downloadItemsColor,
+                      const Positioned.fill(
+                        child: LoaderSpinner(
+                          color: downloadItemsColor,
+                        ),
                       )
                   ],
                 ),
