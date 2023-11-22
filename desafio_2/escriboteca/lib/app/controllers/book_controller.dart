@@ -53,6 +53,21 @@ class BookController extends GetxController {
     book.saveDownloadedState();
   }
 
+  Future<void> deleteBook() async {
+    Directory? appDocDir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
+
+    String path = '${appDocDir!.path}/${book.id}.epub';
+
+    if (await File(path).exists()) {
+      await File(path).delete();
+    }
+
+    book.isDownloaded.value = false;
+    book.saveDownloadedState();
+  }
+
   void toggleFavorite() {
     book.isFavorite.value = !book.isFavorite.value;
     book.saveFavoriteState();

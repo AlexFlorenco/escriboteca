@@ -45,15 +45,41 @@ class CardBook extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  controller.book.title,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  controller.book.author,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  overflow: TextOverflow.ellipsis,
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 133,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            controller.book.title,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            controller.book.author,
+                            style: Theme.of(context).textTheme.bodySmall,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: 30,
+                      child: IconButton(
+                          onPressed: () {
+                            controller.deleteBook();
+                          },
+                          icon: controller.book.isDownloaded.value
+                              ? const Icon(
+                                  Icons.file_download_off,
+                                  color: downloadItemsColor,
+                                )
+                              : const Icon(null)),
+                    )
+                  ],
                 ),
               ],
             ),
