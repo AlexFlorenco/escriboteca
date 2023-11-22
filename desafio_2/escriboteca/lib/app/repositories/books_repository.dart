@@ -6,7 +6,8 @@ import '../models/book.dart';
 const String urlApi = 'https://escribo.com/books.json';
 
 class BooksRepository {
-  List<Book> _books = [];
+  final List<Book> _books = [];
+  Set<int> bookIds = {};
   RxBool isLoading = false.obs;
 
   final Dio dio;
@@ -15,21 +16,19 @@ class BooksRepository {
 
   Future<dynamic> getBooksAPI() async {
     isLoading.value = true;
+    await Future.delayed(const Duration(seconds: 1));
     try {
       var response = await dio.get(urlApi);
       if (response.statusCode == 200) {
         List<dynamic> json = response.data;
-        Set<int> bookIds = {};
-        List<Book> uniqueBooks = [];
 
         for (var bookJson in json) {
           if (!bookIds.contains(bookJson["id"])) {
             Book book = Book.createBook(bookJson);
             bookIds.add(book.id);
-            uniqueBooks.add(book);
+            _books.add(book);
           }
         }
-        _books = uniqueBooks;
         isLoading.value = false;
 
         return true;
