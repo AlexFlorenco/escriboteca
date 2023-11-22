@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-
 class LoaderSpinner extends StatelessWidget {
   const LoaderSpinner({super.key, required this.color});
   final Color color;
