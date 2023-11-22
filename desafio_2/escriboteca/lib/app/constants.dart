@@ -9,3 +9,6 @@ const favoriteInactive = Color(0x88FFFFFF);
 const favoriteBackground = Color(0x30000000);
 
 const downloadItemsColor = Color(0x73000000);
+
+const baseLazyLoadingColor = Color(0x85D3D3D3);
+const highlightLazyLoadingColor = Color(0x85F1F0F0);
