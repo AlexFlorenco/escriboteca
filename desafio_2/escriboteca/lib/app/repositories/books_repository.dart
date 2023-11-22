@@ -19,16 +19,28 @@ class BooksRepository {
       var response = await dio.get(urlApi);
       if (response.statusCode == 200) {
         List<dynamic> json = response.data;
-        _books = json.map((e) => Book.createBook(e)).toList();
-        print(json);
+        Set<int> bookIds = {};
+        List<Book> uniqueBooks = [];
+
+        for (var bookJson in json) {
+          if (!bookIds.contains(bookJson["id"])) {
+            Book book = Book.createBook(bookJson);
+            bookIds.add(book.id);
+            uniqueBooks.add(book);
+          }
+        }
+        _books = uniqueBooks;
         isLoading.value = false;
+
         return true;
       } else {
-        throw Exception('Falha ao carregar biblioteca');
+        return false;
+        // throw Exception('Falha ao carregar biblioteca');
       }
     } catch (e) {
-      isLoading.value = false;
-      throw Exception('Falha ao carregar biblioteca: $e');
+      // isLoading.value = false;
+      return false;
+      // throw Exception('Falha ao carregar biblioteca: $e');
     }
   }
 
