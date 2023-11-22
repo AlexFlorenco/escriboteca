@@ -53,8 +53,11 @@ class _HomePageState extends State<HomePage> {
       () => DefaultTabController(
           length: 2,
           child: Scaffold(
+            backgroundColor: primaryColor,
             appBar: AppBar(
+              toolbarHeight: 70,
               backgroundColor: primaryColor,
+              elevation: 0,
               actions: [
                 GestureDetector(
                     child: const Icon(Icons.delete),
@@ -75,24 +78,30 @@ class _HomePageState extends State<HomePage> {
                     text: 'Favoritos',
                   ),
                 ],
-                indicatorColor: whiteText,
               ),
             ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-              child: TabBarView(children: [
-                booksRepository.isLoading.value
-                    ? const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          LoaderSpinner(color: primaryColor),
-                          SizedBox(height: 20),
-                          Text('Carregando biblioteca...'),
-                        ],
-                      )
-                    : LibraryTab(booksRepository: booksRepository),
-                FavoriteTab(booksRepository: booksRepository),
-              ]),
+            body: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: whiteText,
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
+                child: TabBarView(children: [
+                  booksRepository.isLoading.value
+                      ? const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            LoaderSpinner(color: primaryColor),
+                            SizedBox(height: 20),
+                            Text('Carregando biblioteca...'),
+                          ],
+                        )
+                      : LibraryTab(booksRepository: booksRepository),
+                  FavoriteTab(booksRepository: booksRepository),
+                ]),
+              ),
             ),
           )),
     );
