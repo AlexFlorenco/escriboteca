@@ -33,3 +33,14 @@ O projeto é estruturado em várias partes principais:
 
 - **BookController**: Esta classe é responsável por gerenciar o estado de um livro. Ela contém métodos para baixar, deletar e alternar se o livro é favorito.
 
+## Execução no Simulador
+
+Para executar este algoritmo, será necessário possuir o Flutter instalado em seu sistema. Com o Flutter instalado, você pode executar o app seguindo estas etapas:
+
+1. Clone este repositório para o seu sistema local.
+2. Abra um terminal e navegue até o diretório "desafio_2" do repositório clonado.
+3. Execute o seguinte comando para executar o algoritmo:
+```
+flutter run
+```
+4. Aguarde que seja feita a construção do app no seu simulador.
