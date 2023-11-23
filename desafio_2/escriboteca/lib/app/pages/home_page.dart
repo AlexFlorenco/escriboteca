@@ -52,8 +52,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             body: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16)),
                 color: whiteText,
               ),
               child: Padding(
