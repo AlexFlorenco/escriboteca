@@ -1,4 +1,4 @@
-# Projeto Escriboteca
+## Desafio 2: Projeto Escriboteca
 
 Este projeto é um aplicativo Flutter que permite ao usuário baixar, visualizar e favoritar livros de uma biblioteca online.
 O aplicativo foi construído em Flutter, utilizando os packages:
@@ -15,7 +15,7 @@ O aplicativo foi construído em Flutter, utilizando os packages:
 
 <br>
 
-## Estrutura do Projeto
+## 🔧 Estrutura do Projeto
 
 O projeto é estruturado em várias partes principais:
 
@@ -33,7 +33,7 @@ O projeto é estruturado em várias partes principais:
 
 - **BookController**: Esta classe é responsável por gerenciar o estado de um livro. Ela contém métodos para baixar, deletar e alternar se o livro é favorito.
 
-## Execução no Simulador
+## ▶️ Execução no Simulador
 
 Para executar este algoritmo, será necessário possuir o Flutter instalado em seu sistema. Com o Flutter instalado, você pode executar o app seguindo estas etapas:
 
