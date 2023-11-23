@@ -11,7 +11,7 @@ O aplicativo foi construído em Flutter, utilizando os packages:
 
 #### Prototipação: [Acesse o Figma](https://www.figma.com/file/43t2ABcKBXbwslRQJa0CN6/Untitled?type=design&node-id=0%3A1&mode=design&t=8jdzEM8bE8DlLjPD-1)
 #### Especificação de Requisitos: [Acesse a ERS](https://drive.google.com/file/d/1cmfsiBYZqxT7VwHCos-MqUc738-ywJfb/view?usp=sharing)
-#### Instalação: [Baixe o APK]()
+#### Instalação: [Baixe o APK](https://drive.google.com/file/d/1_O3tDhQUG147T36NDFuFf87upns26DWW/view?usp=share_link)
 
 <br>
 
