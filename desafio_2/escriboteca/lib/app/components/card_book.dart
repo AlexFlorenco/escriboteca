@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../constants.dart';
 import '../controllers/book_controller.dart';
 import 'cover_book.dart';
-import 'loader_spinner.dart';
 
 class CardBook extends StatelessWidget {
   final BookController controller;
@@ -21,28 +20,8 @@ class CardBook extends StatelessWidget {
           children: [
             Column(
               children: [
-                Stack(
-                  children: [
-                    CoverBook(
-                      coverUrl: controller.book.coverUrl,
-                      isDownloaded: controller.book.isDownloaded.value,
-                    ),
-                    if (!controller.book.isDownloaded.value &&
-                        !controller.isDownloading.value)
-                      const Positioned.fill(
-                        child: Icon(
-                          Icons.file_download,
-                          size: 50,
-                          color: downloadItemsColor,
-                        ),
-                      ),
-                    if (controller.isDownloading.value)
-                      const Positioned.fill(
-                        child: LoaderSpinner(
-                          color: downloadItemsColor,
-                        ),
-                      )
-                  ],
+                CoverBook(
+                  controller: controller,
                 ),
                 const SizedBox(height: 10),
                 Row(
