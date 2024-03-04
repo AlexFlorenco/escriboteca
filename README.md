@@ -1,4 +1,4 @@
-## Desafio 2: Projeto Escriboteca
+Escriboteca
 
 Este projeto é um aplicativo Flutter que permite ao usuário baixar, visualizar e favoritar livros de uma biblioteca online.
 O aplicativo foi construído em Flutter, utilizando os packages:
